@@ -2,6 +2,7 @@ package com.devsuperior.dsdelivery.model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -37,14 +38,26 @@ public class Order implements Serializable{
 	
 	private Instant moment;
 	
+	@Enumerated(EnumType.ORDINAL)
+	private OrderStatus status;
+	
 	@ManyToMany
 	@JoinTable(name = "tb_order_product",
 	joinColumns = @JoinColumn(name="order_id"),
 	inverseJoinColumns = @JoinColumn(name="product_id"))
-	private Set<Product> products;
+	private Set<Product> products = new HashSet<>();
 	
-	@Enumerated(EnumType.ORDINAL)
-	private OrderStatus status;
+	public Order() {
+	}
+
+	public Order(String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
+		super();
+		this.address = address;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.moment = moment;
+		this.status = status;
+	}
 
 	public Long getId() {
 		return id;
@@ -122,6 +135,16 @@ public class Order implements Serializable{
 			return false;
 		return true;
 	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+	
+	
 	
 	
 	

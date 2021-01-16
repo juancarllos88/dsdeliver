@@ -16,6 +16,20 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 		return getRepository().findAll();
 	}
 	
+	
+	@Override
+	@Transactional
+	public T insert(T entity) {
+		return getRepository().save(entity);
+	}
+	
+	@Override
+	@Transactional
+	public T findById(Long id) {
+		return getRepository().getOne(id);
+	}
+	
+	
 	protected abstract BaseRepository<T, Long> getRepository();
 
 }

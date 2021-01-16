@@ -24,9 +24,9 @@ public class ProductController {
 	private ConverterServiceImpl converter;
 	
 	@GetMapping
-	public ResponseEntity<List<ProductDTO>> listar() {
+	public ResponseEntity<List<ProductDTO>> findAll() {
 		List<Product> products = service.findAllByOrderByName();
-		return ResponseEntity.ok(converter.converter(products));
+		return ResponseEntity.ok(converter.converterToProductDTO(products));
 		
 	}
 
